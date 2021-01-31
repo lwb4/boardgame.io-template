@@ -1,23 +1,14 @@
-/*
- * Copyright 2017 The boardgame.io Authors.
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-
 import React from 'react';
 import { Client } from 'boardgame.io/react';
 import { SocketIO } from 'boardgame.io/multiplayer';
 import TicTacToe from './game';
 import Board from './board';
 
-const hostname = window.location.hostname;
 const App = Client({
   game: TicTacToe,
   board: Board,
   debug: false,
-  multiplayer: SocketIO({ server: `${hostname}:8000` }),
+  multiplayer: SocketIO({ server: "/" }),
 });
 
 const Spectator = () => (

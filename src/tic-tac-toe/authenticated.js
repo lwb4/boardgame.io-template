@@ -1,11 +1,3 @@
-/*
- * Copyright 2018 The boardgame.io Authors
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
- */
-
 import React from 'react';
 import { Client } from 'boardgame.io/react';
 import { SocketIO } from 'boardgame.io/multiplayer';
@@ -14,12 +6,11 @@ import Board from './board';
 import PropTypes from 'prop-types';
 import request from 'superagent';
 
-const hostname = window.location.hostname;
 const App = Client({
   game: TicTacToe,
   board: Board,
   debug: false,
-  multiplayer: SocketIO({ server: `${hostname}:8000` }),
+  multiplayer: SocketIO({ server: "/" }),
 });
 
 class AuthenticatedClient extends React.Component {
@@ -43,7 +34,7 @@ class AuthenticatedClient extends React.Component {
     const PORT = 8000;
 
     const newGame = await request
-      .post(`http://${hostname}:${PORT}/games/${gameName}/create`)
+      .post(`/games/${gameName}/create`)
       .send({ numPlayers: 2 });
 
     const matchID = newGame.body.matchID;
@@ -52,7 +43,7 @@ class AuthenticatedClient extends React.Component {
 
     for (let playerID of [0, 1]) {
       const player = await request
-        .post(`http://${hostname}:${PORT}/games/${gameName}/${matchID}/join`)
+        .post(`/games/${gameName}/${matchID}/join`)
         .send({
           gameName,
           playerID,

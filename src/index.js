@@ -4,5 +4,5 @@ import { App } from './app';
 
 render(
   <App />,
-  document.getElementById('test') || document.createElement('div')
+  document.getElementById('app')
 );
